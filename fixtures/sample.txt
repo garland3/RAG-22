@@ -1,0 +1,3 @@
+This is a sample text file for testing the RAG ingestion pipeline.
+
+It contains some content that can be split into chunks.
