@@ -12,6 +12,9 @@ class TextHandler(BaseIngestHandler):
     def load_and_split(self, file_path: Path, document: Document) -> List[Chunk]:
         with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
             content = f.read()
+        # Extract metadata from beginning of content
+        metadata = self.extract_metadata(content[:2000])  # first 2000 chars
+        document.metadata.update(metadata)
         text_chunks = self._simple_text_split(content, max_tokens=settings.chunk_max_tokens)
         chunks = []
         for i, chunk_text in enumerate(text_chunks):

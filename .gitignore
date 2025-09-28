@@ -1,4 +1,5 @@
 .env
+rag22-env
 __pycache__/
 *.pyc
 *.pyo

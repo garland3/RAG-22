@@ -12,6 +12,13 @@ class PDFHandler(BaseIngestHandler):
 
     def load_and_split(self, file_path: Path, document: Document) -> List[Chunk]:
         reader = PdfReader(file_path)
+        # Extract text from first 3 pages for metadata
+        metadata_text = ""
+        for page_num in range(min(3, len(reader.pages))):
+            metadata_text += reader.pages[page_num].extract_text() + "\n"
+        metadata = self.extract_metadata(metadata_text)
+        document.metadata.update(metadata)
+
         chunks = []
         chunk_index = 0
         for page_num, page in enumerate(reader.pages):
